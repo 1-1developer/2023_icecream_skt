@@ -13,17 +13,47 @@ namespace LKCSTest
     {
         private bool useprinterdriver;
         private string m_strPrinter;
-        public void Print()
-        {
 
+        public string inPort;
+        public string inIP;
+        public string inbaudRate;
+
+        public void openButton_Click()
+        {
+            string port;
+            long lResult = 0;
+            Int32 baudRate = 0;
+
+            int sIndex = int.Parse(inPort);
+            if (sIndex == 8)
+            {
+                // connect network
+                lResult = LKPrint.OpenPort(inIP, 9100); //포트네임  "USB001" ??
+            }
+            else
+            {
+                // connect other Interface 
+                port = inPort;
+                baudRate = Int32.Parse(inbaudRate);
+                lResult = LKPrint.OpenPort(port, baudRate);
+            }
+            if (lResult != 0)
+            {
+                Debug.LogError("Open Port Failed");
+                return;
+            }
+            else
+            {
+            }
         }
-        private void exitButton_Click(object sender, EventArgs e)
+
+        public void exitButton_Click()
         {
             LKPrint.ClosePort();
             //this.Close();
         }
 
-        private void printStringButton_Click(object sender, EventArgs e)
+        public void printStringButton_Click()
         {
             // TODO: Add your control notification handler code here
             string TempStr;
@@ -86,7 +116,7 @@ namespace LKCSTest
                 lResult = LKPrint.OpenPort(m_strPrinter, 1);
                 if (lResult != 0)
                 {
-                    //MessageBox.Show("OpenPrinter Failed", "Error", MessageBoxButtons.OK);
+                    Debug.LogError("OpenPrinter Failed");
                     return;
                 }
             }
@@ -108,7 +138,7 @@ namespace LKCSTest
                 lResult = LKPrint.ClosePort();
                 if (lResult != 0)
                 {
-                    //MessageBox.Show("ClosePrinter Failed!!!", "Error", MessageBoxButtons.OK);
+                    Debug.LogError("ClosePrinter Failed!!!");
                 }
             }
         }
