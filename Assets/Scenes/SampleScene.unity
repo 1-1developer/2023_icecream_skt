@@ -158,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -255, y: 7}
+  m_AnchoredPosition: {x: -255, y: -1.2}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &84120574
@@ -650,7 +650,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -255, y: 7}
+  m_AnchoredPosition: {x: -255, y: -0.8}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &166481076
@@ -1706,7 +1706,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 340, y: 316}
-  m_SizeDelta: {x: 300, y: 60}
+  m_SizeDelta: {x: 300, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &577343995
 MonoBehaviour:
@@ -2629,7 +2629,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   logtxt: {fileID: 201230777}
   inPort: {fileID: 1053950348}
-  inIP: {fileID: 1449631969}
   inbaudRate: {fileID: 577343995}
   useprinterdriver: {fileID: 655358282}
   indrivername: {fileID: 1534028684}
@@ -2905,7 +2904,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 340, y: 412}
-  m_SizeDelta: {x: 300, y: 60}
+  m_SizeDelta: {x: 300, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1053950348
 MonoBehaviour:
@@ -3896,7 +3895,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1449631968
 RectTransform:
   m_ObjectHideFlags: 0

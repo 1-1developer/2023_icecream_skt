@@ -18,7 +18,7 @@ namespace LKCSTest
 
         public TextMeshProUGUI logtxt;
         public TMP_InputField inPort;
-        public TMP_InputField inIP;
+        //public TMP_InputField inIP;
         public TMP_InputField inbaudRate;
 
         [Header("driver")]
@@ -33,6 +33,8 @@ namespace LKCSTest
         private void Start()
         {
             logtxt.text = "log";
+            inPort.text = "COM4";
+            inbaudRate.text = "115200";
         }
 
         private void Update()
@@ -65,6 +67,7 @@ namespace LKCSTest
             }
             else
             {
+                logtxt.text = "연결됨";
             }
         }
 
@@ -73,6 +76,7 @@ namespace LKCSTest
             LKPrint.ClosePort();
             //this.Close();
         }
+
 
         public void printStringButton_Click()
         {
@@ -131,62 +135,71 @@ namespace LKCSTest
             TempStr = TempStr + "abc456789012" + "\x0A"; // 인쇄할 바코드 데이타
 
 
-            if (useprinterdriver.isOn)
-            {
-                //m_strPrinter = pDriverNameTextBox.Text.ToString();
-                lResult = LKPrint.OpenPort(m_strPrinter, 1);
-                if (lResult != 0)
-                {
-                    Debug.Log("OpenPrinter Failed");
-                    logtxt.text = "OpenPrinter Failed";
+            //if (useprinterdriver.isOn)
+            //{
+            //    //m_strPrinter = pDriverNameTextBox.Text.ToString();
+            //    lResult = LKPrint.OpenPort(m_strPrinter, 1);
+            //    if (lResult != 0)
+            //    {
+            //        Debug.Log("OpenPrinter Failed");
+            //        logtxt.text = "OpenPrinter Failed";
 
-                    return;
-                }
-            }
+            //        return;
+            //    }
+            //}
 
+            logtxt.text = "go print";
             LKPrint.PrintStart();
+            logtxt.text = "print start";
             LKPrint.PrintString(TempStr);
-            LKPrint.PrintBitmap(".\\Logo.bmp", LKPrint.LK_ALIGNMENT_CENTER, 0, 5, 0);
+            //LKPrint.PrintBitmap(".\\Logo.bmp", LKPrint.LK_ALIGNMENT_CENTER, 0, 5, 0);
+            logtxt.text = "Logo.bmp";
 
             //    PrintString(strCenter + "Test for PrintData Function\n");
             //    PrintData(strLeftPrintData, 3);
             //    PrintString("Test for PrintData Function\n");
 
             LKPrint.PrintString(PartialCut);
+            logtxt.text = "PartialCut";
 
             LKPrint.PrintStop();
 
-            if (useprinterdriver.isOn)
-            {
-                lResult = LKPrint.ClosePort();
-                if (lResult != 0)
-                {
-                    Debug.Log("ClosePrinter Failed!!!");
-                    logtxt.text = "ClosePrinter Failed!!!";
-                }
-            }
+            logtxt.text = "print end";
+
+            //if (useprinterdriver.isOn)
+            //{
+            //    lResult = LKPrint.ClosePort();
+            //    if (lResult != 0)
+            //    {
+            //        Debug.Log("ClosePrinter Failed!!!");
+            //        logtxt.text = "ClosePrinter Failed!!!";
+            //    }
+            //}
         }
         public void printNormalButton_Click()
         {
             // TODO: Add your control notification handler code here
             long lResult;
 
-            if (useprinterdriver.isOn)
-            {
-                m_strPrinter = indrivername.text;
-                lResult = LKPrint.OpenPort(m_strPrinter, 1);
-                if (lResult != 0)
-                {
-                    Debug.Log("OpenPrinter Failed");
-                    logtxt.text = "OpenPrinter Failed";
+            //if (useprinterdriver.isOn)
+            //{
+            //    m_strPrinter = indrivername.text;
+            //    lResult = LKPrint.OpenPort(m_strPrinter, 1);
+            //    if (lResult != 0)
+            //    {
+            //        Debug.Log("OpenPrinter Failed");
+            //        logtxt.text = "OpenPrinter Failed";
 
-                    return;
-                }
-            }
+            //        return;
+            //    }
+            //}
 
+            logtxt.text = "go print";
             LKPrint.PrintStart();
+            logtxt.text = "print start";
 
-            LKPrint.PrintBitmap(".\\Logo.bmp", 1, 0, 5, 0); // Print Bitmap
+            //LKPrint.PrintBitmap(".\\Logo.bmp", 1, 0, 5, 0); // Print Bitmap
+            logtxt.text = "print 1";
 
             LKPrint.PrintNormal("\x1b|rATEL (123)-456-7890\n\n\n");
             LKPrint.PrintNormal("\x1b|cAThank you for coming to our shop!\n");
@@ -203,22 +216,69 @@ namespace LKCSTest
             LKPrint.PrintNormal("Change                              $42.50\n\n");
             LKPrint.PrintBarCode("1234567890", 109, 40, 512, 1, 2); // Print Barcode
 
-            LKPrint.PrintBitmap(".\\LUKHAN-logo.bmp", 1, 0, 5, 1); // Print Bitmap
+            //LKPrint.PrintBitmap(".\\LUKHAN-logo.bmp", 1, 0, 5, 1); // Print Bitmap
 
             LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
 
             LKPrint.PrintStop();
+            logtxt.text = "print end";
 
-            if (useprinterdriver.isOn)
-            {
-                lResult = LKPrint.ClosePort();
-                if (lResult != 0)
-                {
-                    Debug.Log("ClosePrinter Failed!!!");
-                    logtxt.text = "ClosePrinter Failed!!!";
+            //if (useprinterdriver.isOn)
+            //{
+            //    lResult = LKPrint.ClosePort();
+            //    if (lResult != 0)
+            //    {
+            //        Debug.Log("ClosePrinter Failed!!!");
+            //        logtxt.text = "ClosePrinter Failed!!!";
 
-                }
-            }
+            //    }
+            //}
+        }
+
+        public void printimage()
+        {
+            // TODO: Add your control notification handler code here
+            long lResult;
+
+            logtxt.text = "go print";
+            LKPrint.PrintStart();
+            logtxt.text = "print start";
+
+            //LKPrint.PrintBitmap(".\\Logo.bmp", 1, 0, 5, 0); // Print Bitmap
+            logtxt.text = "print 1";
+
+            LKPrint.PrintNormal("\x1b|rATEL (123)-456-7890\n\n\n");
+            LKPrint.PrintNormal("\x1b|cAThank you for coming to our shop!\n");
+            LKPrint.PrintNormal("\x1b|cADate\n\n");
+            LKPrint.PrintNormal("Chicken                             $10.00\n");
+            LKPrint.PrintNormal("Hamburger                           $20.00\n");
+            LKPrint.PrintNormal("Pizza                               $30.00\n");
+            LKPrint.PrintNormal("Lemons                              $40.00\n");
+            LKPrint.PrintNormal("Drink                               $50.00\n");
+            LKPrint.PrintNormal("Excluded tax                       $150.00\n");
+            LKPrint.PrintNormal("\x1b|uCTax(5%)                              $7.50\n");
+            LKPrint.PrintNormal("\x1b|bC\x1b|2CTotal         $157.50\n\n");
+            LKPrint.PrintNormal("Payment                            $200.00\n");
+            LKPrint.PrintNormal("Change                              $42.50\n\n");
+            LKPrint.PrintBarCode("1234567890", 109, 40, 512, 1, 2); // Print Barcode
+
+            //LKPrint.PrintBitmap(".\\LUKHAN-logo.bmp", 1, 0, 5, 1); // Print Bitmap
+
+            LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
+
+            LKPrint.PrintStop();
+            logtxt.text = "print end";
+
+            //if (useprinterdriver.isOn)
+            //{
+            //    lResult = LKPrint.ClosePort();
+            //    if (lResult != 0)
+            //    {
+            //        Debug.Log("ClosePrinter Failed!!!");
+            //        logtxt.text = "ClosePrinter Failed!!!";
+
+            //    }
+            //}
         }
     }
 }
