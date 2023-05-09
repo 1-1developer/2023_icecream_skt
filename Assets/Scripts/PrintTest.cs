@@ -9,37 +9,21 @@ using System;
 using TMPro;
 using UnityEngine.UI;
 
+
 namespace LKCSTest
 {
-    public class UnityPrintTest : MonoBehaviour
+    public class PrintTest : MonoBehaviour
     {
-        //private bool useprinterdriver;
-        private string m_strPrinter;
 
         public TextMeshProUGUI logtxt;
-        public TMP_InputField inPort;
-        //public TMP_InputField inIP;
-        public TMP_InputField inbaudRate;
-
-        [Header("driver")]
-        public Toggle useprinterdriver;
-        public TMP_InputField indrivername;
-
-
-        // public string inPort;
-        //public string inIP;
-        //public string inbaudRate;
+        public TMP_Dropdown inPort;
+        public TMP_Dropdown inbaudRate;
 
         private void Start()
         {
             logtxt.text = "log";
-            inPort.text = "COM4";
-            inbaudRate.text = "115200";
-        }
-
-        private void Update()
-        {
-            
+            inPort.value = 0;
+            inbaudRate.value = 0;
         }
         public void openButton_Click()
         {
@@ -47,22 +31,15 @@ namespace LKCSTest
             long lResult = 0;
             Int32 baudRate = 0;
 
-            //int sIndex = int.Parse(inPort.text); 
-            //if (sIndex == 8)
-            //{
-            //    // connect network
-            //    lResult = LKPrint.OpenPort(inIP.text, 9100); //포트네임  "USB001" ??
-            //}
-
-                // connect other Interface 
-                port = inPort.text;
-                baudRate = Int32.Parse(inbaudRate.text);
-                lResult = LKPrint.OpenPort(port, baudRate);
+            // connect other Interface 
+            port = inPort.options[inPort.value].text;
+            baudRate = Int32.Parse(inbaudRate.options[inbaudRate.value].text);
+            lResult = LKPrint.OpenPort(port, baudRate);
 
             if (lResult != 0)
             {
                 Debug.Log("Open Port Failed");
-                logtxt.text="Open Port Failed";
+                logtxt.text = "Open Port Failed";
                 return;
             }
             else
@@ -112,11 +89,11 @@ namespace LKCSTest
             TempStr = TempStr + strCenter;
             TempStr = TempStr + "Thank you for coming to our shop!\r\n";
             TempStr = TempStr + "==========================================\r\n";
-            TempStr = TempStr + "Chicken                             $10.00\r\n";
-            TempStr = TempStr + "Hamburger                           $20.00\r\n";
-            TempStr = TempStr + "Pizza                               $30.00\r\n";
-            TempStr = TempStr + "Lemons                              $40.00\r\n";
-            TempStr = TempStr + "Drink                               $50.00\r\n\r\n";
+            TempStr = TempStr + "Chicken   1                         $10.00\r\n";
+            TempStr = TempStr + "Hamburger  1                        $20.00\r\n";
+            TempStr = TempStr + "Pizza      1                        $30.00\r\n";
+            TempStr = TempStr + "Lemons    1                         $40.00\r\n";
+            TempStr = TempStr + "Drink       1                       $50.00\r\n\r\n";
             TempStr = TempStr + "Excluded tax                       $150.00\r\n";
             TempStr = TempStr + strUnderline;
             TempStr = TempStr + "Tax(5%)                              $7.50\r\n";
@@ -135,19 +112,6 @@ namespace LKCSTest
             TempStr = TempStr + "abc456789012" + "\x0A"; // 인쇄할 바코드 데이타
 
 
-            //if (useprinterdriver.isOn)
-            //{
-            //    //m_strPrinter = pDriverNameTextBox.Text.ToString();
-            //    lResult = LKPrint.OpenPort(m_strPrinter, 1);
-            //    if (lResult != 0)
-            //    {
-            //        Debug.Log("OpenPrinter Failed");
-            //        logtxt.text = "OpenPrinter Failed";
-
-            //        return;
-            //    }
-            //}
-
             logtxt.text = "go print";
             LKPrint.PrintStart();
             logtxt.text = "print start";
@@ -155,9 +119,6 @@ namespace LKCSTest
             //LKPrint.PrintBitmap(".\\Logo.bmp", LKPrint.LK_ALIGNMENT_CENTER, 0, 5, 0);
             logtxt.text = "Logo.bmp";
 
-            //    PrintString(strCenter + "Test for PrintData Function\n");
-            //    PrintData(strLeftPrintData, 3);
-            //    PrintString("Test for PrintData Function\n");
 
             LKPrint.PrintString(PartialCut);
             logtxt.text = "PartialCut";
@@ -166,33 +127,12 @@ namespace LKCSTest
 
             logtxt.text = "print end";
 
-            //if (useprinterdriver.isOn)
-            //{
-            //    lResult = LKPrint.ClosePort();
-            //    if (lResult != 0)
-            //    {
-            //        Debug.Log("ClosePrinter Failed!!!");
-            //        logtxt.text = "ClosePrinter Failed!!!";
-            //    }
-            //}
         }
         public void printNormalButton_Click()
         {
             // TODO: Add your control notification handler code here
-            //long lResult;
+            long lResult;
 
-            //if (useprinterdriver.isOn)
-            //{
-            //    m_strPrinter = indrivername.text;
-            //    lResult = LKPrint.OpenPort(m_strPrinter, 1);
-            //    if (lResult != 0)
-            //    {
-            //        Debug.Log("OpenPrinter Failed");
-            //        logtxt.text = "OpenPrinter Failed";
-
-            //        return;
-            //    }
-            //}
 
             logtxt.text = "go print";
             LKPrint.PrintStart();
@@ -205,10 +145,17 @@ namespace LKCSTest
             LKPrint.PrintNormal("\x1b|cAThank you for coming to our shop!\n");
             LKPrint.PrintNormal("\x1b|cADate\n\n");
             LKPrint.PrintNormal("Chicken                             $10.00\n");
+            LKPrint.PrintNormal("Hamburger      2                    $20.00\n");
+            LKPrint.PrintNormal("Hamburger     2                     $20.00\n");
+            LKPrint.PrintNormal("Hamburger     2                     $20.00\n");
+            LKPrint.PrintNormal("Hamburger    2                      $20.00\n");
+            LKPrint.PrintNormal("Hamburger   2                       $20.00\n");
             LKPrint.PrintNormal("Hamburger                           $20.00\n");
+            LKPrint.PrintNormal("Hamburger                           $20.00\n");
+            LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
             LKPrint.PrintNormal("Pizza                               $30.00\n");
-            LKPrint.PrintNormal("Lemons                              $40.00\n");
-            LKPrint.PrintNormal("Drink                               $50.00\n");
+            LKPrint.PrintNormal("Lemons         2                     $40.00\n");
+            LKPrint.PrintNormal("Drink        2                       $50.00\n");
             LKPrint.PrintNormal("Excluded tax                       $150.00\n");
             LKPrint.PrintNormal("\x1b|uCTax(5%)                              $7.50\n");
             LKPrint.PrintNormal("\x1b|bC\x1b|2CTotal         $157.50\n\n");
@@ -222,63 +169,51 @@ namespace LKCSTest
 
             LKPrint.PrintStop();
             logtxt.text = "print end";
-
-            //if (useprinterdriver.isOn)
-            //{
-            //    lResult = LKPrint.ClosePort();
-            //    if (lResult != 0)
-            //    {
-            //        Debug.Log("ClosePrinter Failed!!!");
-            //        logtxt.text = "ClosePrinter Failed!!!";
-
-            //    }
-            //}
         }
 
         public void printimage()
         {
-            // TODO: Add your control notification handler code here
-            long lResult;
+            try
+            {
+                // TODO: Add your control notification handler code here
+                long lResult;
 
-            logtxt.text = "go print";
-            LKPrint.PrintStart();
-            logtxt.text = "print start";
+                logtxt.text = "go print";
+                LKPrint.PrintStart();
+                logtxt.text = "print start";
 
-            //LKPrint.PrintBitmap(".\\Logo.bmp", 1, 0, 5, 0); // Print Bitmap
-            logtxt.text = "print 1";
+                LKPrint.PrintBitmap("Assets/Resources/logo.bmp", 1, 0, 5, 0); // Print Bitmap
+                logtxt.text = "print logo";
 
-            LKPrint.PrintNormal("\x1b|rATEL (123)-456-7890\n\n\n");
-            LKPrint.PrintNormal("\x1b|cAThank you for coming to our shop!\n");
-            LKPrint.PrintNormal("\x1b|cADate\n\n");
-            LKPrint.PrintNormal("Chicken                             $10.00\n");
-            LKPrint.PrintNormal("Hamburger                           $20.00\n");
-            LKPrint.PrintNormal("Pizza                               $30.00\n");
-            LKPrint.PrintNormal("Lemons                              $40.00\n");
-            LKPrint.PrintNormal("Drink                               $50.00\n");
-            LKPrint.PrintNormal("Excluded tax                       $150.00\n");
-            LKPrint.PrintNormal("\x1b|uCTax(5%)                              $7.50\n");
-            LKPrint.PrintNormal("\x1b|bC\x1b|2CTotal         $157.50\n\n");
-            LKPrint.PrintNormal("Payment                            $200.00\n");
-            LKPrint.PrintNormal("Change                              $42.50\n\n");
-            LKPrint.PrintBarCode("1234567890", 109, 40, 512, 1, 2); // Print Barcode
+                LKPrint.PrintNormal("\x1b|rATEL (123)-456-7890\n\n\n");
+                LKPrint.PrintNormal("\x1b|cAThank you for coming to our shop!\n");
+                LKPrint.PrintNormal("\x1b|cADate\n\n");
+                LKPrint.PrintNormal("Chicken                             $10.00\n");
+                LKPrint.PrintNormal("Hamburger                           $20.00\n");
+                LKPrint.PrintNormal("Pizza                               $30.00\n");
+                LKPrint.PrintNormal("Lemons                              $40.00\n");
+                LKPrint.PrintNormal("Drink                               $50.00\n");
+                LKPrint.PrintNormal("Excluded tax                       $150.00\n");
+                LKPrint.PrintNormal("\x1b|uCTax(5%)                              $7.50\n");
+                LKPrint.PrintNormal("\x1b|bC\x1b|2CTotal         $157.50\n\n");
+                LKPrint.PrintNormal("Payment                            $200.00\n");
+                LKPrint.PrintNormal("Change                              $42.50\n\n");
+                LKPrint.PrintBarCode("1234567890", 109, 40, 512, 1, 2); // Print Barcode
 
-            //LKPrint.PrintBitmap(".\\LUKHAN-logo.bmp", 1, 0, 5, 1); // Print Bitmap
+                //LKPrint.PrintBitmap(".\\LUKHAN-logo.bmp", 1, 0, 5, 1); // Print Bitmap
 
-            LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
+                LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
 
-            LKPrint.PrintStop();
-            logtxt.text = "print end";
+                LKPrint.PrintStop();
+                logtxt.text = "print end";
 
-            //if (useprinterdriver.isOn)
-            //{
-            //    lResult = LKPrint.ClosePort();
-            //    if (lResult != 0)
-            //    {
-            //        Debug.Log("ClosePrinter Failed!!!");
-            //        logtxt.text = "ClosePrinter Failed!!!";
-
-            //    }
-            //}
+            }
+            catch
+            {
+                LKPrint.PrintStop();
+                logtxt.text = "image print Failed";
+            }
+          
         }
     }
 }

@@ -17,7 +17,6 @@ public class VideoPlayerTransition : MonoBehaviour
 
     private void Start()
     {
-        material = new Material(Shader.Find("Unlit/Texture"));
         //transitionCamera.targetTexture = renderTexture;
         videoPlayer.targetTexture = renderTexture;
         videoPlayer.clip = videoClips[currentClipIndex];
