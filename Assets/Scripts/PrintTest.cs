@@ -18,12 +18,13 @@ namespace LKCSTest
         public TextMeshProUGUI logtxt;
         public TMP_Dropdown inPort;
         public TMP_Dropdown inbaudRate;
-
+        public TMP_InputField infont;
         private void Start()
         {
             logtxt.text = "log";
             inPort.value = 0;
             inbaudRate.value = 0;
+            infont.text = "돋움";
         }
         public void openButton_Click()
         {
@@ -35,7 +36,7 @@ namespace LKCSTest
             port = inPort.options[inPort.value].text;
             baudRate = Int32.Parse(inbaudRate.options[inbaudRate.value].text);
             lResult = LKPrint.OpenPort(port, baudRate);
-
+            LKPrint.SetEncoding(51949);
             if (lResult != 0)
             {
                 Debug.Log("Open Port Failed");
@@ -91,7 +92,8 @@ namespace LKCSTest
             TempStr = TempStr + "Thank you for coming to our shop!\r\n";
             TempStr = TempStr + "==========================================\r\n";
             TempStr = TempStr + strDoubleBold;
-            TempStr = TempStr + "                                          \r\n";
+            TempStr = TempStr + "\x1c\x26        교토우지말차/컵       \r\n";
+            TempStr = TempStr + "\x1c\x26        교토우지말차/컵       \r\n";
             TempStr = TempStr + strUnderline;
             TempStr = TempStr + strNormal;
             TempStr = TempStr + "Payment                            $200.00\r\n";
@@ -138,18 +140,18 @@ namespace LKCSTest
             LKPrint.PrintNormal("\x1b|rATEL (123)-456-7890\n\n\n");
             LKPrint.PrintNormal("\x1b|cAThank you for coming to our shop!\n");
             LKPrint.PrintNormal("\x1b|cADate\n\n");
-            LKPrint.PrintText2Image("Gulim", 1, 24, "                교토우지말차/컵          \n",0);
-            LKPrint.PrintNormal("                교토우지말차/컵          \n");
-            LKPrint.PrintNormal("                교토우지말차/컵          \n");
-            LKPrint.PrintNormal("                교토우지말차/컵          \n");
-            LKPrint.PrintNormal("                교토우지말차/컵          \n");
-            LKPrint.PrintNormal("                교토우지말차/컵          \n");
-            LKPrint.PrintNormal("                교토우지말차/컵          \n");
+            LKPrint.PrintText2Image(infont.text, 1, 24, "                교토우지말차/컵          \n",0);
+            LKPrint.PrintText2Image(infont.text, 1, 24, "                교토우지말차/컵          \n",0);
+            LKPrint.PrintText2Image(infont.text, 1, 24, "                교토우지말차/컵          \n",0);
+            LKPrint.PrintNormal("\x1c\x26 ㄱㄴㄷㄹ ㅁㅂ 한글 젤라또 \n");
+            LKPrint.PrintNormal("\x1c\x26 ㄱㄴㄷㄹ ㅁㅂ 한글 젤라또 \n");
+            LKPrint.PrintNormal("==========================================\r\n");
+
             LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
-            LKPrint.PrintNormal("Pizza                               $30.00\n");
+            LKPrint.PrintNormal("\x0ePizza                               $30.00\n");
             LKPrint.PrintNormal("Lemons         2                     $40.00\n");
-            LKPrint.PrintNormal("Drink        2                       $50.00\n");
-            LKPrint.PrintNormal("Excluded tax                       $150.00\n");
+            LKPrint.PrintNormal("\x0f Drink        2                       $50.00\n");
+            LKPrint.PrintNormal("\x0a\xb0\xb1\xb0\xd4\xbc\xba\xc7\xb0\n");
             LKPrint.PrintNormal("\x1b|uCTax(5%)                              $7.50\n");
             LKPrint.PrintNormal("\x1b|bC\x1b|2CTotal         $157.50\n\n");
             LKPrint.PrintNormal("Payment                            $200.00\n");
@@ -174,22 +176,20 @@ namespace LKCSTest
                 logtxt.text = "go print";
                 LKPrint.PrintStart();
                 logtxt.text = "print start";
-
-                LKPrint.PrintBitmap(Application.dataPath +"/Resources/logo.bmp", 1, 0, 5, 0); // Print Bitmap
+                string imagePath = Application.dataPath + "/Resources/mm.bmp";
+                LKPrint.PrintBitmap(imagePath, 1, 0, 5, 0); // Print Bitmap
                 logtxt.text = "print logo";
 
                 LKPrint.PrintNormal("\x1b|rATEL (123)-456-7890\n\n\n");
                 LKPrint.PrintNormal("\x1b|cAThank you for coming to our shop!\n");
                 LKPrint.PrintNormal("\x1b|cADate\n\n");
-                LKPrint.PrintNormal("Chicken                             $10.00\n");
-                LKPrint.PrintNormal("Hamburger                           $20.00\n");
-                LKPrint.PrintNormal("Pizza                               $30.00\n");
-                LKPrint.PrintNormal("Lemons                              $40.00\n");
-                LKPrint.PrintNormal("Drink                               $50.00\n");
+                LKPrint.PrintNormal("\x1b$}C" +"Drink                               $50.00\n");
                 LKPrint.PrintNormal("Excluded tax                       $150.00\n");
                 LKPrint.PrintNormal("\x1b|uCTax(5%)                              $7.50\n");
                 LKPrint.PrintNormal("\x1b|bC\x1b|2CTotal         $157.50\n\n");
                 LKPrint.PrintNormal("Payment                            $200.00\n");
+                LKPrint.PrintBitmap(imagePath, 1, 0, 5, 1); // Print Bitmap
+
                 LKPrint.PrintNormal("Change                              $42.50\n\n");
                 LKPrint.PrintBarCode("1234567890", 109, 40, 512, 1, 2); // Print Barcode
 
