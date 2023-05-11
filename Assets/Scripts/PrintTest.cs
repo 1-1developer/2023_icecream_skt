@@ -76,6 +76,7 @@ namespace LKCSTest
             string BarCodeWidth = "\x1D\x77\x02"; // 바코드 폭
             string SetHRI = "\x1D\x48\x02"; // HRI문자 인쇄위치 아래인쇄지정
             string SetCode128B = "\x1D\x6B\x49"; // Code128
+            //string SetCode = "\x1D\x6B\x49"; // Code128
 
             long lResult;
 
@@ -89,16 +90,9 @@ namespace LKCSTest
             TempStr = TempStr + strCenter;
             TempStr = TempStr + "Thank you for coming to our shop!\r\n";
             TempStr = TempStr + "==========================================\r\n";
-            TempStr = TempStr + "Chicken   1                         $10.00\r\n";
-            TempStr = TempStr + "Hamburger  1                        $20.00\r\n";
-            TempStr = TempStr + "Pizza      1                        $30.00\r\n";
-            TempStr = TempStr + "Lemons    1                         $40.00\r\n";
-            TempStr = TempStr + "Drink       1                       $50.00\r\n\r\n";
-            TempStr = TempStr + "Excluded tax                       $150.00\r\n";
-            TempStr = TempStr + strUnderline;
-            TempStr = TempStr + "Tax(5%)                              $7.50\r\n";
             TempStr = TempStr + strDoubleBold;
-            TempStr = TempStr + "Total         $157.50\r\n\r\n";
+            TempStr = TempStr + "                                          \r\n";
+            TempStr = TempStr + strUnderline;
             TempStr = TempStr + strNormal;
             TempStr = TempStr + "Payment                            $200.00\r\n";
             TempStr = TempStr + "Change                              $42.50\r\n\r\n";
@@ -144,14 +138,13 @@ namespace LKCSTest
             LKPrint.PrintNormal("\x1b|rATEL (123)-456-7890\n\n\n");
             LKPrint.PrintNormal("\x1b|cAThank you for coming to our shop!\n");
             LKPrint.PrintNormal("\x1b|cADate\n\n");
-            LKPrint.PrintNormal("Chicken                             $10.00\n");
-            LKPrint.PrintNormal("Hamburger      2                    $20.00\n");
-            LKPrint.PrintNormal("Hamburger     2                     $20.00\n");
-            LKPrint.PrintNormal("Hamburger     2                     $20.00\n");
-            LKPrint.PrintNormal("Hamburger    2                      $20.00\n");
-            LKPrint.PrintNormal("Hamburger   2                       $20.00\n");
-            LKPrint.PrintNormal("Hamburger                           $20.00\n");
-            LKPrint.PrintNormal("Hamburger                           $20.00\n");
+            LKPrint.PrintText2Image("Gulim", 1, 24, "                교토우지말차/컵          \n",0);
+            LKPrint.PrintNormal("                교토우지말차/컵          \n");
+            LKPrint.PrintNormal("                교토우지말차/컵          \n");
+            LKPrint.PrintNormal("                교토우지말차/컵          \n");
+            LKPrint.PrintNormal("                교토우지말차/컵          \n");
+            LKPrint.PrintNormal("                교토우지말차/컵          \n");
+            LKPrint.PrintNormal("                교토우지말차/컵          \n");
             LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
             LKPrint.PrintNormal("Pizza                               $30.00\n");
             LKPrint.PrintNormal("Lemons         2                     $40.00\n");
@@ -182,7 +175,7 @@ namespace LKCSTest
                 LKPrint.PrintStart();
                 logtxt.text = "print start";
 
-                LKPrint.PrintBitmap("Assets/Resources/logo.bmp", 1, 0, 5, 0); // Print Bitmap
+                LKPrint.PrintBitmap(Application.dataPath +"/Resources/logo.bmp", 1, 0, 5, 0); // Print Bitmap
                 logtxt.text = "print logo";
 
                 LKPrint.PrintNormal("\x1b|rATEL (123)-456-7890\n\n\n");
