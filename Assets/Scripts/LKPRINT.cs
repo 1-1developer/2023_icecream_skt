@@ -13,7 +13,10 @@ namespace LKCSTest
         //Dll file name.
         public const string SEWOODIR = "LKPOSTOT.dll";
 
-        public LKPrint() { }
+        public LKPrint() {
+            // Set Korean Encoding.
+            SetEncoding(51949);
+         }
 
         #region Method Declaration
         [DllImport(SEWOODIR, SetLastError = true, EntryPoint = "OpenPort")]

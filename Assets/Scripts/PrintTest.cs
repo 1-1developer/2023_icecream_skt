@@ -21,10 +21,11 @@ namespace LKCSTest
         public TMP_InputField infont;
         private void Start()
         {
+            LKPrint.SetEncoding(51949); // <=ÏïàÎê®
             logtxt.text = "log";
             inPort.value = 0;
             inbaudRate.value = 0;
-            infont.text = "µ∏øÚ";
+            infont.text = "ÎèãÏõÄ";
         }
         public void openButton_Click()
         {
@@ -36,7 +37,8 @@ namespace LKCSTest
             port = inPort.options[inPort.value].text;
             baudRate = Int32.Parse(inbaudRate.options[inbaudRate.value].text);
             lResult = LKPrint.OpenPort(port, baudRate);
-            LKPrint.SetEncoding(51949);
+            // 51949
+            
             if (lResult != 0)
             {
                 Debug.Log("Open Port Failed");
@@ -45,7 +47,7 @@ namespace LKCSTest
             }
             else
             {
-                logtxt.text = "ø¨∞·µ ";
+                logtxt.text = "Ïó∞Í≤∞Îê®";
             }
         }
 
@@ -60,31 +62,29 @@ namespace LKCSTest
         {
             // TODO: Add your control notification handler code here
             string TempStr;
-            string strCenter = "\x1B\x61\x31"; // ¡ﬂæ”¡§∑ƒ
-                                               //unsigned char strLeftPrintData[10] = "\x1B\x61\x00"; // øﬁ¬ ¡§∑ƒ
-                                               //string strLeftPrintData = "\x1B\x61\x00"; // øﬁ¬ ¡§∑ƒ
-                                               //            string strLeft = "\x1B\x61\x30"; // øﬁ¬ ¡§∑ƒ
-            string strRight = "\x1B\x61\x32"; // ø¿∏•¬ ¡§∑ƒ
+            string strCenter = "\x1B\x61\x31"; // Ï§ëÏïôÏ†ïÎ†¨
+                                               //unsigned char strLeftPrintData[10] = "\x1B\x61\x00"; // ÏôºÏ™ΩÏ†ïÎ†¨
+                                               //string strLeftPrintData = "\x1B\x61\x00"; // ÏôºÏ™ΩÏ†ïÎ†¨
+                                               //            string strLeft = "\x1B\x61\x30"; // ÏôºÏ™ΩÏ†ïÎ†¨
+            string strRight = "\x1B\x61\x32"; // Ïò§Î•∏Ï™ΩÏ†ïÎ†¨
 
             string strDouble = "\x1B\x21\x20"; // Horizontal Double
             string strUnderline = "\x1B\x21\x80"; // underline
             string strDoubleBold = "\x1B\x21\x28"; // Emphasize
-            string strNormal = "\x1B\x21\x02"; // ¡ﬂæ”¡§∑ƒ
+            string strNormal = "\x1B\x21\x02"; // Ï§ëÏïôÏ†ïÎ†¨
             string PartialCut = "\x1D\x56\x42\x01"; // Partial Cut.
 
-
-            string BarCodeHeight = "\x1D\x68\x50"; // πŸƒ⁄µÂ ≥Ù¿Ã
-            string BarCodeWidth = "\x1D\x77\x02"; // πŸƒ⁄µÂ ∆¯
-            string SetHRI = "\x1D\x48\x02"; // HRIπÆ¿⁄ ¿Œº‚¿ßƒ° æ∆∑°¿Œº‚¡ˆ¡§
+            string BarCodeHeight = "\x1D\x68\x50"; // Î∞îÏΩîÎìú ÎÜíÏù¥
+            string BarCodeWidth = "\x1D\x77\x02"; // Î∞îÏΩîÎìú Ìè≠
+            string SetHRI = "\x1D\x48\x02"; // HRIÎ¨∏Ïûê Ïù∏ÏáÑÏúÑÏπò ÏïÑÎûòÏù∏ÏáÑÏßÄÏ†ï
             string SetCode128B = "\x1D\x6B\x49"; // Code128
-            //string SetCode = "\x1D\x6B\x49"; // Code128
 
             long lResult;
 
             TempStr = "";
             TempStr = TempStr + strDouble;
             TempStr = TempStr + strCenter;
-            TempStr = TempStr + "Receipt List\r\n\r\n\r\n";
+            TempStr = TempStr + "Receipt\r\n\r\n\r\n";
             TempStr = TempStr + strNormal;
             TempStr = TempStr + strRight;
             TempStr = TempStr + "Right Alignment\r\n";
@@ -92,21 +92,20 @@ namespace LKCSTest
             TempStr = TempStr + "Thank you for coming to our shop!\r\n";
             TempStr = TempStr + "==========================================\r\n";
             TempStr = TempStr + strDoubleBold;
-            TempStr = TempStr + "\x1c\x26        ±≥≈‰øÏ¡ˆ∏ª¬˜/ƒ≈       \r\n";
-            TempStr = TempStr + "\x1c\x26        ±≥≈‰øÏ¡ˆ∏ª¬˜/ƒ≈       \r\n";
+            TempStr = TempStr + " Ï†úÎ∞úÎÇòÏôÄÎùº \n"; //Íπ®Ïßê
+            TempStr = TempStr + "       ÍµêÌÜ†Ïö∞ÏßÄÎßêÏ∞®/Ïªµ       \r\n"; //Íπ®Ïßê
             TempStr = TempStr + strUnderline;
             TempStr = TempStr + strNormal;
             TempStr = TempStr + "Payment                            $200.00\r\n";
             TempStr = TempStr + "Change                              $42.50\r\n\r\n";
             TempStr = TempStr + "==========================================\r\n";
             TempStr = TempStr + strNormal + strCenter;
-            TempStr = TempStr + BarCodeHeight; // πŸƒ⁄µÂ ≥Ù¿Ã
-            TempStr = TempStr + BarCodeWidth; // πŸƒ⁄µÂ ∆¯
-            TempStr = TempStr + SetHRI; // HRIπÆ¿⁄ ¿Œº‚¿ßƒ° æ∆∑°¿Œº‚¡ˆ¡§
+            TempStr = TempStr + BarCodeHeight; // Î∞îÏΩîÎìú ÎÜíÏù¥
+            TempStr = TempStr + BarCodeWidth; // Î∞îÏΩîÎìú Ìè≠
+            TempStr = TempStr + SetHRI; // HRIÎ¨∏Ïûê Ïù∏ÏáÑÏúÑÏπò ÏïÑÎûòÏù∏ÏáÑÏßÄÏ†ï
 
-            TempStr = TempStr + SetCode128B + "\x0e" + "\x7B\x42"; //14 => ¿Œº‚«“ πŸƒ⁄µÂ ¿⁄∏Æºˆ + Code128bº±≈√
-            TempStr = TempStr + "abc456789012" + "\x0A"; // ¿Œº‚«“ πŸƒ⁄µÂ µ•¿Ã≈∏
-
+            TempStr = TempStr + SetCode128B + "\x0e" + "\x7B\x42"; //14 => Ïù∏ÏáÑÌï† Î∞îÏΩîÎìú ÏûêÎ¶¨Ïàò + Code128bÏÑ†ÌÉù
+            TempStr = TempStr + "abc456789012" + "\x0A"; // Ïù∏ÏáÑÌï† Î∞îÏΩîÎìú Îç∞Ïù¥ÌÉÄ
 
             logtxt.text = "go print";
             LKPrint.PrintStart();
@@ -124,31 +123,54 @@ namespace LKCSTest
             logtxt.text = "print end";
 
         }
+
+        public void printTestHangul()
+        {
+            // TODO: Add your control notification handler code here
+            long lResult;
+
+            LKPrint.PrintStart();
+
+            string content = "ÏïàÎÖï";
+            Encoding enc = Encoding.GetEncoding(51949);
+            byte[] bytes = enc.GetBytes(content);
+            LKPrint.PrintNormal("Lemons         2                     $40.00\n");
+            LKPrint.PrintNormal(enc.GetString(bytes));
+            LKPrint.PrintNormal("\x0f Drink        2                       $50.00\n");
+            LKPrint.PrintStop();
+            LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
+            logtxt.text = "print end";
+        }
+        
         public void printNormalButton_Click()
         {
             // TODO: Add your control notification handler code here
             long lResult;
+
+            const string ESC = "\x1b";
+            const string FS = "\x1c";
+            const string GS="\x1d";
+            const string NUL="\x00";
 
 
             logtxt.text = "go print";
             LKPrint.PrintStart();
             logtxt.text = "print start";
 
-            //LKPrint.PrintBitmap(".\\Logo.bmp", 1, 0, 5, 0); // Print Bitmap
-            logtxt.text = "print 1";
-
-            LKPrint.PrintNormal("\x1b|rATEL (123)-456-7890\n\n\n");
+            string stst = "ÏïàÎÖï";
+            byte[] bytes = Encoding.UTF8.GetBytes(stst);
+            
+            Encoding enc = Encoding.GetEncoding("ks_c_5601-1987");
+            LKPrint.SetEncoding(0);
             LKPrint.PrintNormal("\x1b|cAThank you for coming to our shop!\n");
             LKPrint.PrintNormal("\x1b|cADate\n\n");
-            LKPrint.PrintText2Image(infont.text, 1, 24, "                ±≥≈‰øÏ¡ˆ∏ª¬˜/ƒ≈          \n",0);
-            LKPrint.PrintText2Image(infont.text, 1, 24, "                ±≥≈‰øÏ¡ˆ∏ª¬˜/ƒ≈          \n",0);
-            LKPrint.PrintText2Image(infont.text, 1, 24, "                ±≥≈‰øÏ¡ˆ∏ª¬˜/ƒ≈          \n",0);
-            LKPrint.PrintNormal("\x1c\x26 §°§§§ß§© §±§≤ «—±€ ¡©∂Û∂« \n");
-            LKPrint.PrintNormal("\x1c\x26 §°§§§ß§© §±§≤ «—±€ ¡©∂Û∂« \n");
+            LKPrint.PrintText2Image("Íµ¥Î¶º", 1, 24, "                ÍµêÌÜ†Ïö∞ÏßÄÎßêÏ∞®/Ïªµ          \n",0); //no
+            LKPrint.PrintNormal(Encoding.UTF8.GetString(bytes)+"\n");
+            LKPrint.PrintNormal("\x1c\x26  ÌïúÍ∏Ä Ï†§ÎùºÎòê \n"); //ÏïàÎê®
             LKPrint.PrintNormal("==========================================\r\n");
-
+            // C:\Users\UserID\Desktop\test.txt
             LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
-            LKPrint.PrintNormal("\x0ePizza                               $30.00\n");
+            LKPrint.PrintNormal("\x0eÌîºÏûê                        $30.00\n");
             LKPrint.PrintNormal("Lemons         2                     $40.00\n");
             LKPrint.PrintNormal("\x0f Drink        2                       $50.00\n");
             LKPrint.PrintNormal("\x0a\xb0\xb1\xb0\xd4\xbc\xba\xc7\xb0\n");
@@ -156,6 +178,7 @@ namespace LKCSTest
             LKPrint.PrintNormal("\x1b|bC\x1b|2CTotal         $157.50\n\n");
             LKPrint.PrintNormal("Payment                            $200.00\n");
             LKPrint.PrintNormal("Change                              $42.50\n\n");
+            
             LKPrint.PrintBarCode("1234567890", 109, 40, 512, 1, 2); // Print Barcode
 
             //LKPrint.PrintBitmap(".\\LUKHAN-logo.bmp", 1, 0, 5, 1); // Print Bitmap
@@ -168,37 +191,43 @@ namespace LKCSTest
 
         public void printimage()
         {
+            string root1 = "PC";
+            string root2 = "TECHMAX";
             try
             {
                 // TODO: Add your control notification handler code here
                 long lResult;
 
-                logtxt.text = "go print";
                 LKPrint.PrintStart();
-                logtxt.text = "print start";
-                string imagePath = Application.dataPath + "/Resources/mm.bmp";
-                LKPrint.PrintBitmap(imagePath, 1, 0, 5, 0); // Print Bitmap
-                logtxt.text = "print logo";
+                // PrintBitmap(directory, alignment, options, brightness, imagemod)
+                LKPrint.PrintBitmap($"C:\\Users\\{root2}\\Desktop\\images\\adot.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
+               // LKPrint.PrintNormal("\x1b|cAThank you for coming to our shop!\n");
+                LKPrint.PrintNormal("==========================================\r\n");
+                LKPrint.PrintNormal("\n\n");
+                LKPrint.PrintBitmap($"C:\\Users\\{root2}\\Desktop\\images\\text.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
+                LKPrint.PrintNormal("\n\n");
+                LKPrint.PrintNormal("==========================================\r\n");
 
-                LKPrint.PrintNormal("\x1b|rATEL (123)-456-7890\n\n\n");
-                LKPrint.PrintNormal("\x1b|cAThank you for coming to our shop!\n");
-                LKPrint.PrintNormal("\x1b|cADate\n\n");
-                LKPrint.PrintNormal("\x1b$}C" +"Drink                               $50.00\n");
-                LKPrint.PrintNormal("Excluded tax                       $150.00\n");
-                LKPrint.PrintNormal("\x1b|uCTax(5%)                              $7.50\n");
-                LKPrint.PrintNormal("\x1b|bC\x1b|2CTotal         $157.50\n\n");
-                LKPrint.PrintNormal("Payment                            $200.00\n");
-                LKPrint.PrintBitmap(imagePath, 1, 0, 5, 1); // Print Bitmap
+                LKPrint.PrintBitmap($"C:\\Users\\{root2}\\Desktop\\images\\logo.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
 
-                LKPrint.PrintNormal("Change                              $42.50\n\n");
-                LKPrint.PrintBarCode("1234567890", 109, 40, 512, 1, 2); // Print Barcode
+               
 
-                //LKPrint.PrintBitmap(".\\LUKHAN-logo.bmp", 1, 0, 5, 1); // Print Bitmap
+                LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
+
+                LKPrint.PrintBitmap($"C:\\Users\\{root2}\\Desktop\\images\\adot.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
+                //LKPrint.PrintNormal("\x1b|cAThank you for coming to our shop!\n");
+                LKPrint.PrintNormal("==========================================\r\n");
+                LKPrint.PrintNormal("\n\n");
+                LKPrint.PrintBitmap($"C:\\Users\\{root2}\\Desktop\\images\\text.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
+                LKPrint.PrintNormal("\n\n");
+                LKPrint.PrintNormal("==========================================\r\n");
+
+                LKPrint.PrintBitmap($"C:\\Users\\{root2}\\Desktop\\images\\logo.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
 
                 LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
 
                 LKPrint.PrintStop();
-                logtxt.text = "print end";
+                logtxt.text = "print image end";
 
             }
             catch
