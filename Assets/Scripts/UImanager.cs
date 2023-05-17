@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UImanager : MonoBehaviour
 {
+    public GameObject debugwindow;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,7 +14,10 @@ public class UImanager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            debugwindow.SetActive(true);
+        }
     }
     public void Quitthis()
     {
