@@ -39,7 +39,6 @@ public class GelatoVideoManager : MonoBehaviour
     //public Sprite[] cups;
     public Sprite[] corns;
     public GameObject UIGroup;
-    ToggleGroup toggleG;
 
 
     public QuestionData data;
@@ -50,7 +49,6 @@ public class GelatoVideoManager : MonoBehaviour
     public VideoClip[] S3_Action;
     public VideoClip[] S4_con;
     public VideoClip[] S4_resaults;
-    private int currentClipIndex = 0;
 
 
     public bool isStart =false;
@@ -90,7 +88,7 @@ public class GelatoVideoManager : MonoBehaviour
     }
     public void setQuizText()
     {
-        question.text = setQustions[Quizindex].Replace("\\n", "\n"); ;
+        question.text = "Q. "+setQustions[Quizindex].Replace("\\n", "\n"); ;
         A1.text = setAnswers[Quizindex * 2].Split(":")[0].Replace("\\n", "\n");
         A1c.text = setAnswers[Quizindex * 2].Split(":")[1];
         A2.text = setAnswers[Quizindex * 2 + 1].Split(":")[0].Replace("\\n", "\n"); ;
@@ -100,7 +98,6 @@ public class GelatoVideoManager : MonoBehaviour
     {
         Quizindex++;
         Debug.Log($"QI:{Quizindex}");
-
     }
     // Start is called before the first frame update
     void Start()
@@ -149,7 +146,7 @@ public class GelatoVideoManager : MonoBehaviour
     }
     void OnVideoClipFinished(VideoPlayer vp)
     {
-        if (isAnswered ||( pazeNum % 2 == 1 && pazeNum < 7)|| pazeNum==11)
+        if (isAnswered ||( pazeNum % 2 == 1 && pazeNum < 7))//|| pazeNum==11)
         {
             QuizScreen.SetActive(false);
             pazeNum++;
@@ -190,7 +187,8 @@ public class GelatoVideoManager : MonoBehaviour
                 break;
             case 4: //골프장 루핑 -질문4         
                 QuizScreen.SetActive(true);
-                videoPlayer.clip = S2_Looping[ranSeed];
+                VideoClip nextClip = S2_Looping[ranSeed];
+                videoPlayer.clip = nextClip;
                 break;
             case 5: //
                 videoPlayer.clip = S3_Action[ranSeed * 2 + Seed2];
@@ -210,24 +208,8 @@ public class GelatoVideoManager : MonoBehaviour
                 youare2.gameObject.SetActive(true);
                 getresault = true;
                 resaultvideoPlayer.clip = S4_resaults[GetMaxValue()];
-                //resaultvideoPlayer.clip = S1[6]; //로딩중
                 ResaultScreen.SetActive(true);
                 pazeNum++;
-                break;
-            case 9:
-                //youare2.gameObject.SetActive(true);
-                //resaultvideoPlayer.clip = S1[4];
-                //ResaultScreen.SetActive(true);
-                //videoPlayer.Pause();
-                //pazeNum++;
-                break;
-            case 10:
-                break;
-            case 11:
-                //videoPlayer.clip = S1[0];
-                break;
-            case 12:
-                initializeGelato();
                 break;
             default:
                 break;
@@ -235,9 +217,7 @@ public class GelatoVideoManager : MonoBehaviour
         if(pazeNum !=9)
             videoPlayer.Play();
         else 
-        {
             videoPlayer.Pause();
-        }
         isAnswered = false;
     }
 

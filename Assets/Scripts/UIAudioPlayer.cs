@@ -22,7 +22,7 @@ public class UIAudioPlayer : MonoBehaviour
         {
             bts[i].onClick.AddListener(PlayTouchSound);
         }
-        audioSource2.PlayOneShot(intro);
+        //audioSource2.PlayOneShot(intro);
     }
     public void PlayTouchSound()
     {
@@ -31,15 +31,15 @@ public class UIAudioPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-        if (!gelato.isStart && (timer > 20f))
-        {
-            audioSource2.PlayOneShot(intro);
-            timer = 0;
-        }
-        if (gelato.isStart)
-        {
-            audioSource2.Stop();
-        }
+        //timer += Time.deltaTime;
+        //if (!gelato.isStart && (timer > 20f))
+        //{
+        //    audioSource2.PlayOneShot(intro);
+        //    timer = 0;
+        //}
+        //if (gelato.isStart)
+        //{
+        //    audioSource2.Stop();
+        //}
     }
 }

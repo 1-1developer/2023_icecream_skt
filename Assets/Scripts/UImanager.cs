@@ -5,6 +5,9 @@ using UnityEngine;
 public class UImanager : MonoBehaviour
 {
     public GameObject debugwindow;
+    float timer;
+    int cnt;
+    int cnt2;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +21,11 @@ public class UImanager : MonoBehaviour
         {
             debugwindow.SetActive(true);
         }
+    }
+
+    public void Ondebug()
+    {
+        debugwindow.SetActive(true);
     }
     public void Quitthis()
     {

@@ -22,7 +22,7 @@ namespace LKCSTest
         public QuestionData data;
         public GelatoVideoManager gelatoVideoManager;
 
-        static int orderNum = 001;
+        static int orderNum = 1;
 
         string root1 = "PC";
         string root2 = "TECHMAX";
@@ -41,7 +41,6 @@ namespace LKCSTest
         {
             warningwindow.SetActive(false);
             
-            LKPrint.SetEncoding(51949); // <=안됨
             logtxt.text = "log";
 
             portOpen();
@@ -52,8 +51,18 @@ namespace LKCSTest
 
         public void setkiosk()
         {
-            order = A;
-            root = root2;
+            order = B;
+            root = root1;
+        }
+        public void FEED()
+        {
+            LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
+            LKPrint.PrintNormal("\n\n");
+            LKPrint.PrintNormal("\n\n");
+            LKPrint.PrintNormal("\n\n");
+            LKPrint.PrintNormal("\n\n");
+            LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
+
         }
         public void portOpen()
         {
@@ -63,7 +72,7 @@ namespace LKCSTest
 
             // connect other Interface 
             port = "COM3";
-            baudRate = 1152000;
+            baudRate = 115200;
             lResult = LKPrint.OpenPort(port, baudRate);
             // 51949
 
@@ -105,6 +114,10 @@ namespace LKCSTest
         {
             LKPrint.ClosePort();
             //this.Close();
+        }
+        private void OnApplicationQuit()
+        {
+            exitButton_Click();
         }
         public void SetGelato(TextMeshProUGUI tx)
         {
@@ -188,8 +201,8 @@ namespace LKCSTest
                 LKPrint.PrintStart();
                 // PrintBitmap(directory, alignment, options, brightness, imagemod)
                 LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\{adot}.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap
-                LKPrint.PrintNormal(order +orderNum.ToString()+"\n");
-                //LKPrint.PrintNormal("\x1b|cAThank you for coming to our shop!\n");
+                LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\t_order.bmp", LKPrint.LK_ALIGNMENT_RIGHT, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
+                LKPrint.PrintText($"{order+orderNum.ToString()}\r\n\r\n", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_FNT_DEFAULT, LKPrint.LK_TXT_2WIDTH);
                 LKPrint.PrintNormal("============================================\r\n");
                 LKPrint.PrintNormal("\n\n");
                 LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\{iceImage+cup}.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap
@@ -199,10 +212,13 @@ namespace LKCSTest
                 LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\logo.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
 
                 LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
+                //---------------
 
-                LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\{adot}.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap
-                LKPrint.PrintNormal(order + orderNum.ToString() + "\n");
-                //LKPrint.PrintNormal("\x1b|cAThank you for coming to our shop!\n");
+                LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\{adot}.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap adot
+                LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\t_keep.bmp", LKPrint.LK_ALIGNMENT_RIGHT, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print keep
+
+                LKPrint.PrintText($"{order + orderNum.ToString()}\r\n\r\n", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_FNT_DEFAULT, LKPrint.LK_TXT_2WIDTH);
+
                 LKPrint.PrintNormal("==========================================\r\n");
                 LKPrint.PrintNormal("\n\n");
                 LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\{iceImage + cup}.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap
@@ -237,6 +253,8 @@ namespace LKCSTest
                 LKPrint.PrintStart();
                 // PrintBitmap(directory, alignment, options, brightness, imagemod)
                 LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\adot.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap
+                LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\t_order.bmp", LKPrint.LK_ALIGNMENT_RIGHT, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
+
                 LKPrint.PrintNormal(order + orderNum.ToString() + "\n");
                 // LKPrint.PrintNormal("\x1b|cAThank you for coming to our shop!\n");
                 LKPrint.PrintNormal("============================================\r\n");
@@ -249,6 +267,7 @@ namespace LKCSTest
 
                 LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
 
+                LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\t_keep.bmp", LKPrint.LK_ALIGNMENT_RIGHT, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print keep
                 LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\adot.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap
                 LKPrint.PrintNormal(order + orderNum.ToString() + "\n");
                 //LKPrint.PrintNormal("\x1b|cAThank you for coming to our shop!\n");
