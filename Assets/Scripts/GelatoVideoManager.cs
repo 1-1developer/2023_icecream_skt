@@ -261,6 +261,7 @@ public class GelatoVideoManager : MonoBehaviour
             if (pair.Value == maxValue)
             {
                 resault = int.Parse(pair.Key);
+                break;
             }
         }
         return resault;

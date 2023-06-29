@@ -28,6 +28,8 @@ namespace LKCSTest
         string root2 = "TECHMAX";
         string root;
 
+        string root3 = "C:\\images";
+
         string iceImage;
         string adot;
         string cup;
@@ -191,41 +193,95 @@ namespace LKCSTest
                 return;
             }
             Debug.Log($"ice:{iceImage}/adot{adot}/ cup{cup}");
+            #region MyRegion
+            
+           try
+           {
+               // TODO: Add your control notification handler code here
+               long lResult;
 
 
+               LKPrint.PrintStart();
+               // PrintBitmap(directory, alignment, options, brightness, imagemod)
+               LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\{adot}.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap
+               LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\t_order.bmp", LKPrint.LK_ALIGNMENT_RIGHT, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
+               LKPrint.PrintText($"{order+orderNum.ToString()}\r\n\r\n", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_FNT_DEFAULT, LKPrint.LK_TXT_2WIDTH);
+               LKPrint.PrintNormal("============================================\r\n");
+               LKPrint.PrintNormal("\n\n");
+               LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\{iceImage+cup}.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap
+               LKPrint.PrintNormal("\n\n");
+               LKPrint.PrintNormal("============================================\r\n");
+
+               LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\logo.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
+
+               LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
+               //---------------
+
+               LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\{adot}.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap adot
+               LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\t_keep.bmp", LKPrint.LK_ALIGNMENT_RIGHT, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print keep
+
+               LKPrint.PrintText($"{order + orderNum.ToString()}\r\n\r\n", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_FNT_DEFAULT, LKPrint.LK_TXT_2WIDTH);
+
+               LKPrint.PrintNormal("==========================================\r\n");
+               LKPrint.PrintNormal("\n\n");
+               LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\{iceImage + cup}.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap
+               LKPrint.PrintNormal("\n\n");
+               LKPrint.PrintNormal("==========================================\r\n");
+
+               LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\logo.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
+
+               LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
+
+               LKPrint.PrintStop();
+               logtxt.text = "print image end";
+               orderNum++;
+               seleccup = false;
+               selecice = false;
+               gelatoVideoManager.initializeGelato();
+           }
+           catch
+           {
+               LKPrint.PrintStop();
+               logtxt.text = "image print Failed";
+           }
+               
+            #endregion
+
+            /*
             try
             {
                 // TODO: Add your control notification handler code here
                 long lResult;
 
+
                 LKPrint.PrintStart();
                 // PrintBitmap(directory, alignment, options, brightness, imagemod)
-                LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\{adot}.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap
-                LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\t_order.bmp", LKPrint.LK_ALIGNMENT_RIGHT, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
-                LKPrint.PrintText($"{order+orderNum.ToString()}\r\n\r\n", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_FNT_DEFAULT, LKPrint.LK_TXT_2WIDTH);
+                LKPrint.PrintBitmap($"{root3}\\{adot}.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap
+                LKPrint.PrintBitmap($"{root3}\\t_order.bmp", LKPrint.LK_ALIGNMENT_RIGHT, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
+                LKPrint.PrintText($"{order + orderNum.ToString()}\r\n\r\n", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_FNT_DEFAULT, LKPrint.LK_TXT_2WIDTH);
                 LKPrint.PrintNormal("============================================\r\n");
                 LKPrint.PrintNormal("\n\n");
-                LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\{iceImage+cup}.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap
+                LKPrint.PrintBitmap($"{root3}\\{iceImage + cup}.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap
                 LKPrint.PrintNormal("\n\n");
                 LKPrint.PrintNormal("============================================\r\n");
 
-                LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\logo.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
+                LKPrint.PrintBitmap($"{root3}\\logo.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
 
                 LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
-                //---------------
+                                                //---------------
 
-                LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\{adot}.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap adot
-                LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\t_keep.bmp", LKPrint.LK_ALIGNMENT_RIGHT, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print keep
+                LKPrint.PrintBitmap($"{root3}\\{adot}.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap adot
+                LKPrint.PrintBitmap($"{root3}\\t_keep.bmp", LKPrint.LK_ALIGNMENT_RIGHT, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print keep
 
                 LKPrint.PrintText($"{order + orderNum.ToString()}\r\n\r\n", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_FNT_DEFAULT, LKPrint.LK_TXT_2WIDTH);
 
                 LKPrint.PrintNormal("==========================================\r\n");
                 LKPrint.PrintNormal("\n\n");
-                LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\{iceImage + cup}.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap
+                LKPrint.PrintBitmap($"{root3}\\{iceImage + cup}.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap
                 LKPrint.PrintNormal("\n\n");
                 LKPrint.PrintNormal("==========================================\r\n");
 
-                LKPrint.PrintBitmap($"C:\\Users\\{root}\\Desktop\\images\\logo.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
+                LKPrint.PrintBitmap($"{root3}\\logo.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
 
                 LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
 
@@ -241,10 +297,11 @@ namespace LKCSTest
                 LKPrint.PrintStop();
                 logtxt.text = "image print Failed";
             }
-
+            */
         }
         public void printimage2()
         {
+            
             try
             {
                 // TODO: Add your control notification handler code here
@@ -291,6 +348,54 @@ namespace LKCSTest
                 LKPrint.PrintStop();
                 logtxt.text = "image print Failed";
             }
+            
+            /*
+            try
+            {
+                // TODO: Add your control notification handler code here
+                long lResult;
+
+
+                LKPrint.PrintStart();
+                // PrintBitmap(directory, alignment, options, brightness, imagemod)
+                LKPrint.PrintBitmap($"{root3}\\adot.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap
+                LKPrint.PrintBitmap($"{root3}\\t_order.bmp", LKPrint.LK_ALIGNMENT_RIGHT, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
+                LKPrint.PrintText($"{order + orderNum.ToString()}\r\n\r\n", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_FNT_DEFAULT, LKPrint.LK_TXT_2WIDTH);
+                LKPrint.PrintNormal("============================================\r\n");
+                LKPrint.PrintNormal("\n\n");
+                LKPrint.PrintBitmap($"{root3}\\1cup.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap
+                LKPrint.PrintNormal("\n\n");
+                LKPrint.PrintNormal("============================================\r\n");
+
+                LKPrint.PrintBitmap($"{root3}\\logo.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
+
+                LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
+                                                //---------------
+
+                LKPrint.PrintBitmap($"{root3}\\adot.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap adot
+                LKPrint.PrintBitmap($"{root3}\\t_keep.bmp", LKPrint.LK_ALIGNMENT_RIGHT, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print keep
+
+                LKPrint.PrintText($"{order + orderNum.ToString()}\r\n\r\n", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_FNT_DEFAULT, LKPrint.LK_TXT_2WIDTH);
+
+                LKPrint.PrintNormal("==========================================\r\n");
+                LKPrint.PrintNormal("\n\n");
+                LKPrint.PrintBitmap($"{root3}\\1cup.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_HEIGHT_DOUBLE, 5, 0); // Print Bitmap
+                LKPrint.PrintNormal("\n\n");
+                LKPrint.PrintNormal("==========================================\r\n");
+
+                LKPrint.PrintBitmap($"{root3}\\logo.bmp", LKPrint.LK_ALIGNMENT_CENTER, LKPrint.LK_BITMAP_NORMAL, 5, 0); // Print Bitmap
+
+                LKPrint.PrintNormal("\x1b|fP"); // Partial Cut.
+
+                LKPrint.PrintStop();
+                logtxt.text = "print test image end";
+            }
+            catch
+            {
+                LKPrint.PrintStop();
+                logtxt.text = "image test print Failed";
+            }
+            */
         }
     }
 }
